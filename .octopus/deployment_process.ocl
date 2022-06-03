@@ -1,0 +1,19 @@
+step "Run a Script" {
+    properties = {
+        Octopus.Action.TargetRoles = "role"
+    }
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.RunOnServer = "false"
+            Octopus.Action.Script.ScriptBody = <<-EOT
+                write-host 'hi'
+                write-host #{Octopus.Task.ConcurrencyTag}
+            EOT
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "PowerShell"
+        }
+        worker_pool_variable = ""
+    }
+}
